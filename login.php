@@ -1,10 +1,10 @@
 <?php  require 'header.php' ;?>
 <?php
 
-if(isset($_SESSION['email'])){
+if(isset($_SESSION['loggedin'])){
     header("location:index.php");
 }
-$email=$password='';
+$email=$password=$id='';
 $email_err = $password_err='';
 if(isset($_POST['signin'])){
     $email = $_POST['email'];
@@ -26,11 +26,14 @@ if(isset($_POST['signin'])){
     $sql = "SELECT * FROM `user` WHERE email='$email' AND password='$password'";
     $results = mysqli_query($conn,$sql);
     $user = mysqli_fetch_assoc($results);
+    $id = $user["id"];
     if(!$user){
         header("location:login.php?login_err");
     }else{
+
         $_SESSION['loggedin'] = true;
-        header("location:index.php?success_msg");
+        $_SESSION['id'] = $id;
+        header("location:index.php?u_email=$email");
     }
 }
 

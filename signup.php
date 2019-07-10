@@ -70,8 +70,8 @@ if (isset($_POST['signup'])){
     }else{
         $sql = "INSERT INTO `user`(`id`, `firstname`, `lastname`, `email`, `password`) VALUES (null,'$firstname','$lastname','$email','$password')";
         mysqli_query($conn,$sql);
-        header("location:index.php");
-        session_start();
+        header("location:login.php");
+
         $_SESSION['email'] = $email;
     }
 
